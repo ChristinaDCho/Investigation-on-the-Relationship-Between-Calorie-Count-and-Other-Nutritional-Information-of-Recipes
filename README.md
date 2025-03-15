@@ -1,13 +1,13 @@
-## Nutrition of Recipes on food.com
+# Nutrition of Recipes on food.com
 By Christina Cho and Hanna Serykava
 
-## Overview
+# Overview
 
 This was the final project for the class DSC 80 at UCSD. It analyzes a dataset containing information on various recipes on food.com.
 
 ---
 
-## Introduction
+# Introduction
 
 While the calorie count of a recipe is not the same thing as the overall healthiness of a recipe, calorie count is still nonetheless a useful tool for making healthy food choices. Particularly, making healthy food choices can be difficult as consumers make incorrect assumptions about the health of a food item from its labeling with terms such as “low sugar,” “low fat,” “low carb,” “low sodium,” etc. (Jahn et. al 2023) This project aims to analyze which factors affect the calorie count of recipes, and see if we can predict the calorie count of a recipe from its nutritional information.
 
@@ -41,7 +41,7 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 
 ---
 
-## Data Cleaning and Exploratory Data Analysis
+# Data Cleaning and Exploratory Data Analysis
 
 1. We merged the  RAW_recipes.csv and RAW_interactions.csv files using a left join on the id and recipe_id columns to be able to work with both files simultaneously.
 
@@ -53,21 +53,21 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 
 5. After cleaning, our dataset recipes_rating has 234429 rows and 26 columns.
 
-# Result
+## Result
 
 The recipes_rating.head() displays:
 
-# Univariate Analysis
+## Univariate Analysis
 
-# Bivariate Analysis
+## Bivariate Analysis
 
-# Interesting Aggregates
+## Interesting Aggregates
 
 ---
 
-## Assessment of Missingness
+# Assessment of Missingness
 
-# NMAR Analysis
+## NMAR Analysis
 
 We believe that the “rating” column could be “NMAR”. It’s hard to find the reason for missingness of the “rating” column in other columns as missingness of data in “rating” column may be dependent on the data in “rating” column itself.
 
@@ -81,11 +81,11 @@ Additional data that could explain the missingness of the data in the rating col
 2. Checking the correlation between missingness in rating and reviews, which could be caused by users skipping both rating and review because they had forgotten or had no opinion (Causing the data missingness to be “MAR”)
 3. Checking whether rating missingness is correlated with users only rating the recipes with low or high “avg_rating”, meaning that users are more inclined to leave a review if they see a certain “avg_rating” (Causing the data missingness to be “MAR”).
 
-# Missingness Dependency
+## Missingness Dependency
 
 ---
 
-## Hypothesis Testing
+# Hypothesis Testing
 
 As stated in the introduction, we are trying to find the relationship between various nutrition facts of an item of food and its calorie count. Therefore, it would be useful to empirically examine the difference in calorie count of one of the most widely used terms of “low sugar.” Are the foods that qualify as “low sugar” truly lower calorie than the foods that are not?
 
@@ -101,13 +101,13 @@ Using the test statistic of difference of means between the calorie count of the
 
 ---
 
-## Framing a Prediction Problem
+# Framing a Prediction Problem
 
 The prediction problem is predicting the calories of recipes on food.com using the other information we know about each recipe. It is a regression analysis. We chose the calorie count as the response variable because it is an important general tool that indicates healthier foods. The methods we used to evaluate the model were R^2 and RMSE because these are the two most relevant metrics used for linear regression models, allowing us to see both the closeness of the data points with each other and also how accurate the predicted line is.
 
 ---
 
-## Baseline Model
+# Baseline Model
 
 We are using a linear regression model as our baseline. The features we are using are the logs of the columns “sugar PDV” and “total fat PDV,” which are both quantitative. We chose to take the log of both columns because they have a skewed distribution, and taking the log accounts for that. The bulk of the data for both are between 0 and 100, but there are data points that go up to 30k for sugar and 3000 for total fat.
 
@@ -115,9 +115,9 @@ The model had an R^2 value of 0.0656 and an RMSE of 563.783. As the R^2 is fairl
 
 ---
 
-## Final Model
+# Final Model
 
 ---
 
-## Fairness Analysis
+# Fairness Analysis
 
