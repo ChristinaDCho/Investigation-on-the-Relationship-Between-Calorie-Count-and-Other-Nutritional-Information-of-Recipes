@@ -127,27 +127,25 @@ Possible reasonings for “NMAR”:
 3. Some users may tend to only rate recipes they enjoyed, choosing not to leave a rating when they disliked a recipe.
 
 Additional data that could explain the missingness of the data in the rating column:
+
 1. Did those users read the recipe? Did they read the recipe and not rate it? Did they cook the recipe? Did they open the ranking section but didn’t submit the rating? How often do people leave ratings in general?
 2. Checking the correlation between missingness in rating and reviews, which could be caused by users skipping both rating and review because they had forgotten or had no opinion (Causing the data missingness to be “MAR”)
 3. Checking whether rating missingness is correlated with users only rating the recipes with low or high “avg_rating”, meaning that users are more inclined to leave a review if they see a certain “avg_rating” (Causing the data missingness to be “MAR”).
 
 ## Missingness Dependency
 
-We are planning to test whether rating column depends on:
-1. avg_rating (a column rating may depend on if the missing values appear more frequently in recipes with low or high average rating)
-2. 'minutes'
-3. 'sodium_pdv’
-4. 'sat_fat_pdv'
+We are planning to test whether rating column depends on avg_rating (a column rating may depend on if the missing values appear more frequently in recipes with low or high average rating)
 
-These are our results:
-1. Missingness in 'rating' is likely dependent on avg_rating (MAR)
-( p-value = 0.0143 <0.05)
-2. Missingness in 'rating' is likely dependent on minutes (MAR) 
-( p-value = 0.0004 <0.05)
-3. No significant evidence that 'rating' missingness depends on sodium_pdv (MCAR) 
-( p-value = 0.3748 >0.05)
-4. No significant evidence that 'rating' missingness depends on sat_fat_pdv (MCAR)
-( p-value = 0.1914>0.05)
+**Null Hypothesis**: The missingness of ratings does not depend on average ratings.
+
+**Alternate Hypothesis**: The missingness of ratings does depend on average ratings.
+
+**Test Statistic**: K-S Stat
+
+**Signficance Level**: 0.05
+
+Because our p-value is 0.0143, which is less than the significance level of 0.05, we can reject the null hypothesis. Missngness in `rating` may be dependent on avg_rating, making it MAR.
+
 
 ### Missingness exploration graphs: 
 
