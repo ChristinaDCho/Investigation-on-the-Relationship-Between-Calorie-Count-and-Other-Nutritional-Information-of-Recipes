@@ -61,21 +61,6 @@ Food Quality and Preference, Volume 109, 2023, 104900, ISSN 0950-3293, https://w
 
 ## Result
 
-|column|description|
-|---|---|
-|`'name'`|object |
-|`'id'`|object |
-|`'n_ingredients'`|int64 |
-|`'rating'`|int64 |
-|`'avg_rating'`|float |
-|`'calories'`|float |
-|`'total_fat_pdv'`|float |
-|`'sugar_pdv'`|float |
-|`'sodium_pdv'`|float |
-|`'protein_pdv'`|float |
-|`'sat_fat_pdv'`|float |
-|`'carb_pdv'`|float |
-
 This is the first few rows of our cleaned dataframe. For readability, only the relevant columns have been selected.
 
 | name                                 |     id |   n_ingredients |   rating |   avg_rating |   calories |   total_fat_pdv |   sugar_pdv |   sodium_pdv |   protein_pdv |   sat_fat_pdv |   carb_pdv |
@@ -166,7 +151,7 @@ These are our results:
 
 ### Missingness exploration graphs: 
 
-Distribution of avg_rating for Missing vs. Non-Missing Ratings:
+#### Distribution of avg_rating for Missing vs. Non-Missing Ratings:
 
 <iframe
   src="assets/Distribution of avg_rating for Missing vs. Non-Missing Ratings.html"
@@ -178,7 +163,7 @@ Distribution of avg_rating for Missing vs. Non-Missing Ratings:
 Majority of recipes are situated close to 5.0 average rating. There appears to be a slight increase in missing ratings for recipes close to 5.0 average ratings. (Suggestion: some users could decide not to leave their positive rating when there are already plenty of positive ratings)
 
 
-Distribution of minutes for Missing vs. Non-Missing Ratings
+#### Distribution of minutes for Missing vs. Non-Missing Ratings
 
 <iframe
   src="assets/Distribution of minutes for Missing vs. Non-Missing Ratings.html"
@@ -188,7 +173,7 @@ Distribution of minutes for Missing vs. Non-Missing Ratings
 ></iframe>
 
 
-Distribution of minutes for Missing vs. Non-Missing Ratings
+#### Distribution of minutes for Missing vs. Non-Missing Ratings
 
 <iframe
   src="assets/Distribution of avg_rating for Missing vs. Non-Missing Ratings.html"
@@ -200,7 +185,7 @@ Distribution of minutes for Missing vs. Non-Missing Ratings
 Majority of recipes take less than 100 minutes to finish. There appears to be a slight increase in missing ratings for recipes that take more than 100 minutes. (Suggestion: some users could decide not to finish/abandon the recipe, therefore, decide not to leave their rating)
 
 
-Distribution of sodium_pdv for Missing vs. Non-Missing Ratings
+#### Distribution of sodium_pdv for Missing vs. Non-Missing Ratings
 
 <iframe
   src="assets/Distribution of sodium_pdv for Missing vs. Non-Missing Ratings.html"
@@ -212,7 +197,7 @@ Distribution of sodium_pdv for Missing vs. Non-Missing Ratings
 The proportion of missing ratings appears to be roughly proportional to the total count across sodium levels (both are skewed right).
 
 
-Distribution of sat_fat_pdv for Missing vs. Non-Missing Ratings
+#### Distribution of sat_fat_pdv for Missing vs. Non-Missing Ratings
 
 <iframe
   src="assets/Distribution of sat_fat_pdv for Missing vs. Non-Missing Ratings.html"
@@ -237,9 +222,9 @@ Null Hypothesis: The mean calorie count of the recipes labeled as "low sugar" is
 
 Alternate Hypothesis: The mean calorie count of the recipes labeled as "low sugar" is less than than the mean calorie count of recipes that are not labeled as "low sugar."
 
-Using the test statistic of difference of means between the calorie count of the recipes labeled “low sugar” and not labeled “low sugar,” carrying out the permutation test resulted in a p-value of 0.0, which is less than our significance level of 0.05. Therefore, we can reject the null hypothesis and conclude that the mean calorie count of recipes labeled as low sugar may be less than the mean calorie count of recipes that are not labeled as low sugar.
-
 <iframe src="hypothesis.html" width=800 height=600 frameBorder=0></iframe>
+
+Using the test statistic of difference of means between the calorie count of the recipes labeled “low sugar” and not labeled “low sugar,” carrying out the permutation test resulted in a p-value of 0.0, which is less than our significance level of 0.05. Therefore, we can reject the null hypothesis and conclude that the mean calorie count of recipes labeled as low sugar may be less than the mean calorie count of recipes that are not labeled as low sugar.
 
 ---
 
