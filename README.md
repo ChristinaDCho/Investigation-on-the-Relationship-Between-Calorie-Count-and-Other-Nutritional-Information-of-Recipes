@@ -99,7 +99,7 @@ Alternate Hypothesis: The mean calorie count of the recipes labeled as "low suga
 
 Using the test statistic of difference of means between the calorie count of the recipes labeled “low sugar” and not labeled “low sugar,” carrying out the permutation test resulted in a p-value of 0.0, which is less than our significance level of 0.05. Therefore, we can reject the null hypothesis and conclude that the mean calorie count of recipes labeled as low sugar may be less than the mean calorie count of recipes that are not labeled as low sugar.
 
-<iframe src="assets/hypothesis.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="hypothesis.html" width=800 height=600 frameBorder=0></iframe>
 
 ---
 
