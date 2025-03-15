@@ -244,6 +244,44 @@ The model had an R^2 value of 0.0656 and an RMSE of 563.783. As the R^2 is fairl
 
 # Final Model
 
+#### Added features:
+
+1. n_ingredients (Number of ingredients)
+
+Reasoning: number of ingredients in the recipe is often correlated with the calorie count of the resulting dish. Higher number of ingredients can correlate with higher calorie content of the recipe. This helps our model to better grasp the calorie variations based on the number of ingredients.
+
+2. Minutes (Cooking time)
+
+Reasoning: longer cooking time means more elaborate recipes which can correlate with higher calorie count. This helps our model to determine the complexity of the recipe, which indirectly helps it determine calorie count with higher accuracy.
+
+3. log transformation of sugar_pdv
+
+Reasoning: the original sugar_pdv was highly skewed, meaning few recipes had a very high sugar count while others’ sugar content was much lower. By taking the natural log transformation we were able to normalize the distribution of the sugar_pdv, which simplifies the process of capturing the linear relationship between the calorie count and sugar_pdv for our model. By doing this, we stabilized our variance and significantly improved our model’s accuracy (we have more normal distribution, therefore our model could learn better).
+
+4. Standardization of features we used in our model
+
+Reasoning: features with larger values (ex: values in minutes are generally higher than values in n_ingredients) could dominate the model, making it harder for the model to capture the weight of each feature on the calorie count (The standardization has especially high impact on the Ridge Regression, making it less biased against the large scale values)
+
+
+#### Modeling algorithm:
+
+We have checked the performance of Lasso Regression, Random Forest and Lasso Regression (Lasso Regression had slightly worse predictions in terms of R² and RMSE (while Ridge applies L2 regularization, helping to prevent overfitting) and Random Forest had higher  RMSE than Ridge and much slower performance).
+We chose the Ridge Regression. We needed to find the optimal alpha out of [1, 10, 50, 100, 500] for our Ridge Regression to balance bias and variance. We used GridSearchCV to select the best value of our hyperparameter from the range of values  [1, 10, 50, 100, 500] and performed cross-validation (cv=3) (we used neg_root_mean_squared_error for scoring). 
+
+Baseline’s model performance: 
+
+1. R² =0.06555081885812675
+2. RMSE = 563.7830302958045
+
+Final Model performance: 
+
+1. R² =0.9377
+2. RMSE = 147.01
+
+The R² of the final model is much greater than the R² of the baseline model, meaning that the final model explains higher variance in calorie prediction.
+
+The RMSE of the final model is much lower than the RMSE of the baseline model, meaning that the final model’s predictions are closer to the actual calorie counts.
+
 ---
 
 # Fairness Analysis
