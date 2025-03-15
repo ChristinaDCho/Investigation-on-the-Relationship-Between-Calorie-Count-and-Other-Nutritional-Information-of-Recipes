@@ -74,7 +74,21 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 
 ## Univariate Analysis
 
+<iframe
+  src="assets/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 ## Bivariate Analysis
+
+<iframe
+  src="assets/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ## Interesting Aggregates
 
