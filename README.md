@@ -322,6 +322,8 @@ The R² of the final model is much greater than the R² of the baseline model, m
 
 The RMSE of the final model is much lower than the RMSE of the baseline model, meaning that the final model’s predictions are closer to the actual calorie counts.
 
+<iframe src="assets/ridge.png" width=800 height=600 frameBorder=0></iframe>
+
 ---
 
 # Fairness Analysis
@@ -342,3 +344,5 @@ Our output: RMSE Difference: 6.429792108726588
 P-value: 0.536
 
 Conclusion: Fail to reject H₀ (Our model is fair). No strong evidence of bias; any difference in precision is likely due to random chance.
+
+<iframe src="assets/perm.png" width=800 height=600 frameBorder=0></iframe>
