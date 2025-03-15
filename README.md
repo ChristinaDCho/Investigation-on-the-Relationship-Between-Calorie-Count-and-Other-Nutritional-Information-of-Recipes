@@ -70,7 +70,15 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 |`'sat_fat_pdv'`|float |
 |`'carb_pdv'`|float |
 
+This is the first few rows of our cleaned dataframe.
 
+| name                                 |     id |   n_ingredients |   rating |   avg_rating |   calories |   total_fat_pdv |   sugar_pdv |   sodium_pdv |   protein_pdv |   sat_fat_pdv |   carb_pdv |
+|:-------------------------------------|-------:|----------------:|---------:|-------------:|-----------:|----------------:|------------:|-------------:|--------------:|--------------:|-----------:|
+| 1 brownies in the world    best ever | 333281 |               9 |        4 |            4 |      138.4 |              10 |          50 |            3 |             3 |            19 |          6 |
+| 1 in canada chocolate chip cookies   | 453467 |              11 |        5 |            5 |      595.1 |              46 |         211 |           22 |            13 |            51 |         26 |
+| 412 broccoli casserole               | 306168 |               9 |        5 |            5 |      194.8 |              20 |           6 |           32 |            22 |            36 |          3 |
+| 412 broccoli casserole               | 306168 |               9 |        5 |            5 |      194.8 |              20 |           6 |           32 |            22 |            36 |          3 |
+| 412 broccoli casserole               | 306168 |               9 |        5 |            5 |      194.8 |              20 |           6 |           32 |  
 
 ## Univariate Analysis
 
@@ -111,6 +119,81 @@ Additional data that could explain the missingness of the data in the rating col
 3. Checking whether rating missingness is correlated with users only rating the recipes with low or high “avg_rating”, meaning that users are more inclined to leave a review if they see a certain “avg_rating” (Causing the data missingness to be “MAR”).
 
 ## Missingness Dependency
+
+We are planning to test whether rating column depends on:
+1. avg_rating (a column rating may depend on if the missing values appear more frequently in recipes with low or high average rating)
+2. 'minutes'
+3. 'sodium_pdv’
+4. 'sat_fat_pdv'
+
+These are our results:
+1. Missingness in 'rating' is likely dependent on avg_rating (MAR)
+( p-value = 0.0143 <0.05)
+2. Missingness in 'rating' is likely dependent on minutes (MAR) 
+( p-value = 0.0004 <0.05)
+3. No significant evidence that 'rating' missingness depends on sodium_pdv (MCAR) 
+( p-value = 0.3748 >0.05)
+4. No significant evidence that 'rating' missingness depends on sat_fat_pdv (MCAR)
+( p-value = 0.1914>0.05)
+
+### Missingness exploration graphs: 
+
+Distribution of avg_rating for Missing vs. Non-Missing Ratings:
+
+<iframe
+  src="assets/Distribution of avg_rating for Missing vs. Non-Missing Ratings.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+Majority of recipes are situated close to 5.0 average rating. There appears to be a slight increase in missing ratings for recipes close to 5.0 average ratings. (Suggestion: some users could decide not to leave their positive rating when there are already plenty of positive ratings)
+
+
+Distribution of minutes for Missing vs. Non-Missing Ratings
+
+<iframe
+  src="assets/Distribution of minutes for Missing vs. Non-Missing Ratings.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+Distribution of minutes for Missing vs. Non-Missing Ratings
+
+<iframe
+  src="assets/Distribution of avg_rating for Missing vs. Non-Missing Ratings.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+Majority of recipes take less than 100 minutes to finish. There appears to be a slight increase in missing ratings for recipes that take more than 100 minutes. (Suggestion: some users could decide not to finish/abandon the recipe, therefore, decide not to leave their rating)
+
+
+Distribution of sodium_pdv for Missing vs. Non-Missing Ratings
+
+<iframe
+  src="assets/Distribution of sodium_pdv for Missing vs. Non-Missing Ratings.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The proportion of missing ratings appears to be roughly proportional to the total count across sodium levels (both are skewed right).
+
+
+Distribution of sat_fat_pdv for Missing vs. Non-Missing Ratings
+
+<iframe
+  src="assets/Distribution of sat_fat_pdv for Missing vs. Non-Missing Ratings.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The proportion of missing ratings appears to be roughly proportional to the total count across saturated fat levels (both are skewed right).
 
 ---
 
