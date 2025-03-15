@@ -266,6 +266,7 @@ Reasoning: features with larger values (ex: values in minutes are generally high
 ### Modeling algorithm:
 
 We have checked the performance of Ridge Regression, Random Forest and Lasso Regression (Lasso Regression had slightly worse predictions in terms of R² and RMSE (while Ridge applies L2 regularization, helping to prevent overfitting) and Random Forest had higher  RMSE than Ridge and much slower performance).
+
 We chose the Ridge Regression. We needed to find the optimal alpha out of [1, 10, 50, 100, 500] for our Ridge Regression to balance bias and variance. We used GridSearchCV to select the best value of our hyperparameter from the range of values  [1, 10, 50, 100, 500] and performed cross-validation (cv=3) (we used neg_root_mean_squared_error for scoring). 
 
 #### Baseline’s model performance: 
@@ -286,3 +287,19 @@ The RMSE of the final model is much lower than the RMSE of the baseline model, m
 
 # Fairness Analysis
 
+Group X: recipes with <= 10 ingredients (simpler recipes)
+Group Y: recipes with > 10 ingredients (more complex recipes)
+
+We are trying to determine whether the final model predicts calorie count better for one of these two groups. We are evaluating the regression model, therefore, we decided to use RMSE (Root Mean Squared Error). We use a permutation test to determine whether the difference between observed RMSE between Group X and Group Y is significant.
+
+**Null Hypothesis**: Our model is fair. RMSE for small and large numbers of ingredients is roughly the same, and any differences are due to random chance.
+
+**Alternative Hypothesis**: Our model is unfair. RMSE for small numbers of ingredients is significantly higher than for large numbers of ingredients.
+
+We chose the absolute difference in RMSE of group X and group Y. We set significance level = 0.05. Therefore, we reject the null hypothesis if we get the p-value lower than 0.05.
+
+Our output: RMSE Difference: 6.429792108726588
+
+P-value: 0.536
+
+Conclusion: Fail to reject H₀ (Our model is fair). No strong evidence of bias; any difference in precision is likely due to random chance.
