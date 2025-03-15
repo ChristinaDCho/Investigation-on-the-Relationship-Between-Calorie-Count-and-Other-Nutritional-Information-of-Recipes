@@ -218,11 +218,11 @@ We chose to do a permutation test as we are comparing two separate groups with d
 
 We chose to set our test statistic as the difference of means between the calorie count of the recipes labeled “low sugar” and not labeled “low sugar” because the two distributions both have the same shape and are roughly normal, so the mean calorie count will be a fair representation of the calorie count of both groups.
 
-Null Hypothesis: The mean calorie count of the recipes labeled as "low sugar" is the same as the mean calorie count of recipes that are not labeled as "low sugar."
+**Null Hypothesis**: The mean calorie count of the recipes labeled as "low sugar" is the same as the mean calorie count of recipes that are not labeled as "low sugar."
 
-Alternate Hypothesis: The mean calorie count of the recipes labeled as "low sugar" is less than than the mean calorie count of recipes that are not labeled as "low sugar."
+**Alternate Hypothesis**: The mean calorie count of the recipes labeled as "low sugar" is less than than the mean calorie count of recipes that are not labeled as "low sugar."
 
-<iframe src="perm_test_hist.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/perm_test_hist.html" width=800 height=600 frameBorder=0></iframe>
 
 Using the test statistic of difference of means between the calorie count of the recipes labeled “low sugar” and not labeled “low sugar,” carrying out the permutation test resulted in a p-value of 0.0, which is less than our significance level of 0.05. Therefore, we can reject the null hypothesis and conclude that the mean calorie count of recipes labeled as low sugar may be less than the mean calorie count of recipes that are not labeled as low sugar.
 
@@ -265,7 +265,7 @@ Reasoning: features with larger values (ex: values in minutes are generally high
 
 ### Modeling algorithm:
 
-We have checked the performance of Lasso Regression, Random Forest and Lasso Regression (Lasso Regression had slightly worse predictions in terms of R² and RMSE (while Ridge applies L2 regularization, helping to prevent overfitting) and Random Forest had higher  RMSE than Ridge and much slower performance).
+We have checked the performance of Ridge Regression, Random Forest and Lasso Regression (Lasso Regression had slightly worse predictions in terms of R² and RMSE (while Ridge applies L2 regularization, helping to prevent overfitting) and Random Forest had higher  RMSE than Ridge and much slower performance).
 We chose the Ridge Regression. We needed to find the optimal alpha out of [1, 10, 50, 100, 500] for our Ridge Regression to balance bias and variance. We used GridSearchCV to select the best value of our hyperparameter from the range of values  [1, 10, 50, 100, 500] and performed cross-validation (cv=3) (we used neg_root_mean_squared_error for scoring). 
 
 #### Baseline’s model performance: 
