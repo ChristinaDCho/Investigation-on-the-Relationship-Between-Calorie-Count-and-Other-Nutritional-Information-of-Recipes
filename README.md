@@ -134,7 +134,13 @@ Additional data that could explain the missingness of the data in the rating col
 
 ## Missingness Dependency
 
-We are planning to test whether rating column depends on avg_rating (a column rating may depend on if the missing values appear more frequently in recipes with low or high average rating)
+We are planning to test whether rating column depends on:
+1. avg_rating (a column rating may depend on if the missing values appear more frequently in recipes with low or high average rating)
+2. 'minutes'
+3. 'sodium_pdv’
+4. 'sat_fat_pdv'
+
+`avg_rating`
 
 **Null Hypothesis**: The missingness of ratings does not depend on average ratings.
 
@@ -142,10 +148,45 @@ We are planning to test whether rating column depends on avg_rating (a column ra
 
 **Test Statistic**: K-S Stat
 
-**Signficance Level**: 0.05
+**Significance Level**: 0.05
 
 Because our p-value is 0.0143, which is less than the significance level of 0.05, we can reject the null hypothesis. Missngness in `rating` may be dependent on avg_rating, making it MAR.
 
+`minutes`
+
+**Null Hypothesis**: The missingness of ratings does not depend on minutes of recipe.
+
+**Alternate Hypothesis**: The missingness of ratings does depend on minutes of recipe.
+
+**Test Statistic**: K-S Stat
+
+**Significance Level**: 0.05
+
+Because our p-value is 0.0004, which is less than the significance level of 0.05, we can reject the null hypothesis. Missngness in `rating` may be dependent on minutes, making it MAR.
+
+`sodium_pdv`
+
+**Null Hypothesis**: The missingness of ratings does not depend on sodium (PDV).
+
+**Alternate Hypothesis**: The missingness of ratings does depend on sodium (PDV).
+
+**Test Statistic**: K-S Stat
+
+**Significance Level**: 0.05
+
+Because our p-value is 0.3748, which is greater than the significance level of 0.05, we cannot reject the null hypothesis. Missngness in `rating` may be independent of sodium (PDV).
+
+`sat_fat_pdv`
+
+**Null Hypothesis**: The missingness of ratings does not depend on saturated fat (PDV).
+
+**Alternate Hypothesis**: The missingness of ratings does depend on saturated fat (PDV).
+
+**Test Statistic**: K-S Stat
+
+**Significance Level**: 0.05
+
+Because our p-value is 0.1914, which is greater than the significance level of 0.05, we cannot reject the null hypothesis. Missngness in `rating` may be independent of saturated fat (PDV).
 
 ### Missingness exploration graphs: 
 
