@@ -51,11 +51,26 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 
 4. We replaced missing values in columns calories, sugar_pdv, total_fat_pdv and rating in order to ensure data accuracy.
 
-5. After cleaning, our dataset recipes_rating has 234429 rows and 26 columns.
+5. After cleaning, our dataset recipes_rating has 234429 rows and 26 columns. The relevant columns and the type of data they contain is below.
 
 ## Result
 
-The recipes_rating.head() displays:
+|column|description|
+|---|---|
+|`'name'`|object |
+|`'id'`|object |
+|`'n_ingredients'`|int64 |
+|`'rating'`|int64 |
+|`'avg_rating'`|float |
+|`'calories'`|float |
+|`'total_fat_pdv'`|float |
+|`'sugar_pdv'`|float |
+|`'sodium_pdv'`|float |
+|`'protein_pdv'`|float |
+|`'sat_fat_pdv'`|float |
+|`'carb_pdv'`|float |
+
+
 
 ## Univariate Analysis
 
