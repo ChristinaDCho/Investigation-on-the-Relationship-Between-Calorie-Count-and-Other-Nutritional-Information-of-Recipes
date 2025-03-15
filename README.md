@@ -345,4 +345,4 @@ P-value: 0.536
 
 Conclusion: Fail to reject H₀ (Our model is fair). No strong evidence of bias; any difference in precision is likely due to random chance.
 
-<iframe src="assets/permutaton.png" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/permutation.png" width=800 height=600 frameBorder=0></iframe>
