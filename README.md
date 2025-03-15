@@ -1,4 +1,4 @@
-# Nutrition of Recipes on food.com
+# Investigation on the Relationship Between Calorie Count and Other Nutritional Information of Recipes
 By Christina Cho and Hanna Serykava
 
 # Overview
