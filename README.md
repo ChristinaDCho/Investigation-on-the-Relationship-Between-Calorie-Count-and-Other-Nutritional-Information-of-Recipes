@@ -9,13 +9,13 @@ This was the final project for the class DSC 80 at UCSD. It analyzes a dataset c
 
 # Introduction
 
-While the calorie count of a recipe is not the same thing as the overall healthiness of a recipe, calorie count is still nonetheless a useful tool for making healthy food choices. Particularly, making healthy food choices can be difficult as consumers make incorrect assumptions about the health of a food item from its labeling with terms such as “low sugar,” “low fat,” “low carb,” “low sodium,” etc. (Jahn et. al 2023) This project aims to analyze which factors affect the calorie count of recipes, and see if we can predict the calorie count of a recipe from its nutritional information.
+While the calorie count of a recipe is not the same thing as the overall healthiness of a recipe, calorie count is still nonetheless a useful tool for making healthy food choices. Particularly, making healthy food choices can be difficult as consumers make incorrect assumptions about the health of a food item from its labeling with terms such as “low sugar,” “low fat,” “low carb,” “low sodium,” etc.[^1] This project aims to analyze **which factors affect the calorie count of recipes**, and see if we can **predict the calorie count of a recipe from its nutritional information**.
 
-The datasets we are using to solve this question come from food.com, which is a website that hosts a large number of recipes that can be rated by users. 
-We are working with two csv files: 
+The datasets we are using to solve this question come from food.com, which is a website that hosts a large number of recipes that can be rated by users. We are working with two csv files: 
 1. RAW_recipes.csv consisting of 83782 rows and 13 columns
 2. RAW_interactions.csv consisting of 731927 rows and 5 columns
-The first dataset, called recipes, has 83782 rows and 10 columns and has various information on each recipe. The relevant columns and their description is below.
+
+The first dataset, called `recipes`, has 83782 rows and 10 columns and has various information on each recipe. The relevant columns and their description is below.
 
 |column|description|
 |---|---|
@@ -29,7 +29,7 @@ The first dataset, called recipes, has 83782 rows and 10 columns and has various
 |`'ingredients'`|List of the ingredients of the recipe |
 |`'n_ingredients'`|Number of ingredients in the recipe |
 
-The second dataset, called reviews, has 731927 rows and 13 columns, and has information on each user rating of the recipes.
+The second dataset, called `reviews`, has 731927 rows and 13 columns, and has information on each user rating of the recipes.
 
 |column|description|
 |---|---|
@@ -39,19 +39,25 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 |`'rating'`|User-submitted rating |
 |`'review'`|Review text |
 
+[^1]: Steffen Jahn, Ossama Elshiewy, Tim Döring, Yasemin Boztug,
+Truthful yet misleading: Consumer response to ‘low fat’ food with high sugar content,
+Food Quality and Preference, Volume 109, 2023, 104900, ISSN 0950-3293, https://www.sciencedirect.com/science/article/abs/pii/S0950329323000940
+
 ---
 
 # Data Cleaning and Exploratory Data Analysis
 
-1. We merged the  RAW_recipes.csv and RAW_interactions.csv files using a left join on the id and recipe_id columns to be able to work with both files simultaneously.
+1. We merged the  RAW_recipes.csv and RAW_interactions.csv files using a left merge on the id and recipe_id columns to be able to work with both files simultaneously.
 
 2. We replaced ratings of 0 with NaN, under the assumption they are not valid ratings, as ratings can only be from 1 to 5.
 
-3. We decided to extract the data from the nutrition column which was list in a string form and we transformed the values  into other columns: calories, total_fat_pdv, sugar_pdv, sodium_pdv, protein_pdv, sat_fat_pdv, carb_pdv.
+3. We decided to extract the data from the nutrition column which was list in a string form and we transformed the values into other columns: calories, total_fat_pdv, sugar_pdv, sodium_pdv, protein_pdv, sat_fat_pdv, carb_pdv and converted each of these into floats.
 
 4. We replaced missing values in columns calories, sugar_pdv, total_fat_pdv and rating in order to ensure data accuracy.
 
-5. After cleaning, our dataset recipes_rating has 234429 rows and 26 columns. The relevant columns and the type of data they contain is below.
+5. Then, we calculated the average rating of each recipe.
+
+6. After cleaning, our dataset recipes_rating has 234429 rows and 26 columns. The relevant columns and the type of data they contain is below.
 
 ## Result
 
@@ -70,7 +76,7 @@ The second dataset, called reviews, has 731927 rows and 13 columns, and has info
 |`'sat_fat_pdv'`|float |
 |`'carb_pdv'`|float |
 
-This is the first few rows of our cleaned dataframe.
+This is the first few rows of our cleaned dataframe. For readability, only the relevant columns have been selected.
 
 | name                                 |     id |   n_ingredients |   rating |   avg_rating |   calories |   total_fat_pdv |   sugar_pdv |   sodium_pdv |   protein_pdv |   sat_fat_pdv |   carb_pdv |
 |:-------------------------------------|-------:|----------------:|---------:|-------------:|-----------:|----------------:|------------:|-------------:|--------------:|--------------:|-----------:|
@@ -82,23 +88,45 @@ This is the first few rows of our cleaned dataframe.
 
 ## Univariate Analysis
 
+We wanted to check the distribution of calories in the dataset. However, it was an extremely skewed distribution with most of the data being between 0-1000, but certain data points going all the way up to around 30k, making the histogram unreadable. In order to rectify this, we created a subset of the data, called `under_2000` that contains only the data for recipes that have 2000 calories or under. We chose 2000 as the cutoff as most of the data points were within that range, and 2000 is also the recommended daily calories for the average man according to the FDA.
+
 <iframe
-  src="assets/file-name.html"
+  src="assets/calories_hist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+As you can see, even within the subsection of recipes that are 2000 calories or less, the calorie distribution is very skewed to the right. Most of the data seems to be between 0 and 500 calories.
 
 ## Bivariate Analysis
 
+Next, we wanted to see the difference in the distribution of calories for recipes that could be labeled "low sugar" vs. "low fat." However, the data itself does not label the recipes as either of those terms, so we had to manually label them.
+
+The criteria set by the FDA for low fat foods requires that for every 100 calories, the food has 3 or less grams of fat. The criteria for low sugar is that sugar PDV must be 5 or less. 
+
+1. First, we created a function that takes in nutrition as PDV and returns it as a percentage of the number of calories.
+2. Then we created a column, `total_fat_p_cal` that has the total fat as a percentage of the number of calories with that function.
+3. Then we created two columns, `low_fat` and `low sugar` that have boolean values indicating whether the recipe is low fat or low sugar respectively.
+
 <iframe
-  src="assets/file-name.html"
+  src="assets/box.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
+While the box plots look similar, the variance for the calories of the low sugar recipes seems to be higher than the variance of the calories of the low fat recipes. Additionally, the low sugar recipes seem to be higher in calorie overall than the low fat recipes.
+
 ## Interesting Aggregates
+
+We also created a pivot table to show the average calorie count of recipes for each rating, as that might show us a relationship for the calorie count of recipes and the rating. We thought that higher calorie recipes might be rated more highly, as they would be tastier.
+
+|          |     1.0 |     2.0 |     3.0 |     4.0 |     5.0 |
+|:---------|--------:|--------:|--------:|--------:|--------:|
+| calories | 486.595 | 446.598 | 425.791 | 405.047 | 415.213 |
+
+Interestingly, the pivot table shows the opposite trend of what we thought, as the average calorie count of recipes goes down as the rating goes up.
 
 ---
 
